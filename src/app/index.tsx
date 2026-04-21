@@ -16,7 +16,7 @@ export default function Index() {
                     <Text style={style.title}>Lista de Tarefas</Text>
 
                     <Input
-                        placeholder="Digite a tarefa"
+                        placeholder="Digite a tarefa "
                     />
                 </View>
             </ScrollView>

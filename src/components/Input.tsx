@@ -18,6 +18,6 @@ const style = StyleSheet.create({
         width: "100%",
         height: 48,
         borderWidth: 1,
-        borderRadius: 9
+        borderRadius: 10
     }
 })
