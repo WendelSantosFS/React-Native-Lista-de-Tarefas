@@ -1,7 +1,10 @@
 import Button from "@/components/Button"
 import Input from "@/components/Input"
+import ItemList from "@/components/ItemList"
+
 import { useEffect, useState } from "react"
 import {
+    FlatList,
     ScrollView,
     StyleSheet,
     Text,
@@ -48,10 +51,16 @@ function lastId ( list: dataTypeTask[]): number {
 }
 
 
+
+
+
+
 export default function Index() {
 
     const [task, setTask ] = useState("")
     const [dataTask, setDataTask] = useState<dataTypeTask[]>([])
+
+    const reverseDataTask = [...dataTask].reverse()
     
     useEffect( ()=> {
 
@@ -110,6 +119,14 @@ export default function Index() {
                     />
                 </View>
 
+                <View>
+                    <FlatList 
+                        data={reverseDataTask}
+                        renderItem={ task => ( <ItemList task={task.item.task}/>)}
+                        keyExtractor={ item => item.id.toString()} //`${item.id}` - O "keyExtractor" só retorna STRING
+                    />
+                </View>
+
 
                 </View>
             </ScrollView>
@@ -140,5 +157,8 @@ const style = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         gap: 7,
+
+        marginBottom: 20,
+        marginTop: 20,
     }
 })
