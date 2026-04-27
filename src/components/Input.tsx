@@ -15,7 +15,7 @@ export default function Input ( {...rest}: TextInputProps) {
 
 const style = StyleSheet.create({
     input: {
-        width: "100%",
+        flex: 1,
         height: 48,
         borderWidth: 1,
         borderRadius: 10

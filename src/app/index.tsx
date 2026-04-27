@@ -1,23 +1,116 @@
+import Button from "@/components/Button"
 import Input from "@/components/Input"
-import { StyleSheet,
+import { useEffect, useState } from "react"
+import {
+    ScrollView,
+    StyleSheet,
     Text,
     View,
-    ScrollView,
-    SafeAreaView
 } from "react-native"
 
 
+import AsyncStorage from "@react-native-async-storage/async-storage"
+
+
+
+
+
+
+
+async function asyncPersistData ( list: dataTypeTask[]) {
+    const jsonObj = JSON.stringify(list)
+
+    await AsyncStorage.setItem("todoRN", jsonObj)   // chave: todoRN= salva apenas 1.    @todoRN= um ARRAY desta chave. //não usar, por enquanto
+    // await console.log('Task salva: ', list.task)
+}
+
+
+
+
+type statusTask= "feito" | "ativo"
+interface dataTypeTask {
+    id: number,
+    task: string,
+    status: statusTask
+}
+
+
+function lastId ( list: dataTypeTask[]): number {
+    if (list.length == 0) return 1
+
+
+    let bigBig: number = 0;
+    list.forEach( (task) => {
+        if (task.id > bigBig) bigBig = task.id
+    })
+
+    return bigBig + 1;
+}
+
 
 export default function Index() {
+
+    const [task, setTask ] = useState("")
+    const [dataTask, setDataTask] = useState<dataTypeTask[]>([])
+    
+    useEffect( ()=> {
+
+        async function dataReaload () {
+            const data = await AsyncStorage.getItem("todoRN")
+
+            if (data !== null) {
+                const reloadData: dataTypeTask[] = JSON.parse(data)
+                console.log(reloadData)
+                setDataTask(reloadData)
+            }
+            
+        }
+
+        dataReaload()
+
+    }, [])
+    
+
+    async function FuncSaveTask () {
+
+        if (task.replaceAll(' ', '').length === 0) return
+
+        const newIdTask: number = lastId(dataTask)
+
+        const newTask: dataTypeTask = { id: newIdTask, task, status: "ativo"}
+
+        
+        setDataTask( data => [...data, newTask])
+
+        // const mergeDatas = [...dataTask, newTask]  // Assim eu entendo mais facilmente
+        // asyncPersistData(mergeDatas)
+
+
+        asyncPersistData([...dataTask, newTask])
+        console.log('task setData: ', [...dataTask, newTask])
+        setTask("")
+    }
+
 
     return(
             <ScrollView style={ { flex: 1}}>
                 <View style={style.container}>
                     <Text style={style.title}>Lista de Tarefas</Text>
 
+                <View style={style.addTask}>
                     <Input
                         placeholder="Digite a tarefa "
+                        value={task}
+                        onChangeText={ (newTxt) => setTask(newTxt) }
                     />
+
+                    <Button
+                        label="+"
+                        onPress={FuncSaveTask}
+                    />
+                </View>
+
+
                 </View>
             </ScrollView>
     )
@@ -30,12 +123,22 @@ export default function Index() {
 const style = StyleSheet.create({
 
     container: {
-        padding: 35,
+        padding: 25,
         alignContent: "center",
-        justifyContent: "center"
+        justifyContent: "center",
+
+        paddingTop: 70,
     },
 
     title: {
-        fontSize: 30
+        fontSize: 30,
+        fontWeight: "bold"
+    },
+
+    addTask: {
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: 7,
     }
 })
