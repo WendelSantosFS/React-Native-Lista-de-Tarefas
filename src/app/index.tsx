@@ -1,10 +1,10 @@
 import Button from "@/components/Button"
 import Input from "@/components/Input"
-import ItemList from "@/components/ItemList"
 
 import { useEffect, useState } from "react"
 import {
     FlatList,
+    Pressable,
     ScrollView,
     StyleSheet,
     Text,
@@ -30,7 +30,7 @@ async function asyncPersistData ( list: dataTypeTask[]) {
 
 
 
-type statusTask= "feito" | "ativo"
+type statusTask= "feito" | "pendente"
 interface dataTypeTask {
     id: number,
     task: string,
@@ -49,6 +49,7 @@ function lastId ( list: dataTypeTask[]): number {
 
     return bigBig + 1;
 }
+
 
 
 
@@ -74,26 +75,23 @@ export default function Index() {
             }
             
         }
-
         dataReaload()
 
     }, [])
+    useEffect( () => { console.log('Atualizando via EFFECT: ', dataTask)   }, [dataTask])
     
 
+    
     async function FuncSaveTask () {
 
         if (task.replaceAll(' ', '').length === 0) return
 
         const newIdTask: number = lastId(dataTask)
 
-        const newTask: dataTypeTask = { id: newIdTask, task, status: "ativo"}
+        const newTask: dataTypeTask = { id: newIdTask, task, status: "pendente"}
 
         
         setDataTask( data => [...data, newTask])
-
-        // const mergeDatas = [...dataTask, newTask]  // Assim eu entendo mais facilmente
-        // asyncPersistData(mergeDatas)
-
 
         asyncPersistData([...dataTask, newTask])
         console.log('task setData: ', [...dataTask, newTask])
@@ -101,8 +99,24 @@ export default function Index() {
     }
 
 
+
+    function pressSucess ( id: number) {
+        
+        const updatedTask: dataTypeTask[] = dataTask.map( task => { 
+            return task.id === id ? {...task, status: "feito"} : task
+        })
+        setDataTask(updatedTask)
+
+    }
+    function pressDelete ( id: number ) {
+
+        const newArrayDeleted: dataTypeTask[] = [...dataTask].filter( (item) => item.id != id)
+        setDataTask(newArrayDeleted)
+    }
+
+
     return(
-            <ScrollView style={ { flex: 1}}>
+            <View style={ { flex: 1}}>
                 <View style={style.container}>
                     <Text style={style.title}>Lista de Tarefas</Text>
 
@@ -119,17 +133,43 @@ export default function Index() {
                     />
                 </View>
 
+
                 <View>
                     <FlatList 
                         data={reverseDataTask}
-                        renderItem={ task => ( <ItemList task={task.item.task}/>)}
+                        renderItem={ task => ( 
+                           <View style={ [style.item,  task.item.status === "feito" && style.completed] }>
+
+                                       <Text style={style.txt}>{task.item.task}</Text>
+                           
+                                       <View style={style.viewBtns}>
+
+                                            {
+                                                task.item.status === "pendente" ?
+                                                    <Pressable style={ [style.sucess, style.btns]} onPress={() => pressSucess(task.item.id)}>
+                                                        <Text style={style.textBtn}>Concluir</Text>
+                                                    </Pressable>
+                                                : <Text></Text>
+
+                                            }
+
+                           
+                                           <Pressable style={ [style.cancel, style.btns]} onPress={() => pressDelete(task.item.id)}>
+                                               <Text style={style.textBtn}>Excluir</Text>
+                                           </Pressable>
+                                       </View>
+                            </View>
+
+                        )}
+                        
                         keyExtractor={ item => item.id.toString()} //`${item.id}` - O "keyExtractor" só retorna STRING
                     />
+
                 </View>
 
 
                 </View>
-            </ScrollView>
+            </View>
     )
 }
 
@@ -144,7 +184,7 @@ const style = StyleSheet.create({
         alignContent: "center",
         justifyContent: "center",
 
-        paddingTop: 70,
+        paddingTop: 140,
     },
 
     title: {
@@ -160,5 +200,57 @@ const style = StyleSheet.create({
 
         marginBottom: 20,
         marginTop: 20,
+    },
+
+
+
+
+
+
+
+    item: {
+        backgroundColor: "#606060",
+        borderRadius: 8,
+
+        marginBottom: 10,
+        padding: 10,
+    },
+    txt: {
+        color: "#fff",
+        fontSize: 25
+    },
+
+
+
+    // Style de REnderizar o FLATLIST
+    viewBtns: {
+        flexDirection: 'row', 
+        gap: 15,
+        marginTop: 5, 
+    },
+    btns: {
+        borderRadius: 10,
+        height: 30,
+
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    textBtn: {
+        color: "#fefbfb",
+        fontSize: 20,
+        fontWeight: "500",
+        
+    },
+    sucess: {
+        backgroundColor: "green",
+        flex: 1,
+    },
+    cancel: {
+        backgroundColor: "red",
+        flex: 1,
+    },
+
+    completed: {
+        backgroundColor: "green",
     }
 })

@@ -6,7 +6,7 @@ Lista de tarefas feita em React Native que salva as tarefas na memória do próp
 Etapas:
     - Tela de autenticação(Login) + Banco  - Pendente
     - Salvar as tarefas no próprio celular - OK
-    - Botões de "Concluir" e "Remover" tarefa - Pendente
+    - Botões de "Concluir" e "Remover" tarefa - OK
     - Salvar as tarefas no "Bando de Dados" - Pendente
 
 
