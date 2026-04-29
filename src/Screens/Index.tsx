@@ -5,7 +5,6 @@ import { useEffect, useState } from "react"
 import {
     FlatList,
     Pressable,
-    ScrollView,
     StyleSheet,
     Text,
     View,

@@ -1,0 +1,1 @@
+Se eu colocar um arquivo dentro da pasta APP, automaticamente vira uma ROTA.

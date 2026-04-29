@@ -4,10 +4,11 @@ Lista de tarefas feita em React Native que salva as tarefas na memória do próp
 
 
 Etapas:
-    - Tela de autenticação(Login) + Banco  - Pendente
-    - Salvar as tarefas no próprio celular - OK
-    - Botões de "Concluir" e "Remover" tarefa - OK
-    - Salvar as tarefas no "Bando de Dados" - Pendente
+    1- Tela de autenticação(Login) + Banco  - Pendente
+    2- Salvar as tarefas no próprio celular - OK
+    3- Botões de "Concluir" e "Remover" tarefa - OK
+    4- Salvar as tarefas no "Bando de Dados" - Pendente
+    5- Fazer um Back-end que busque o usuário no Banco de Dados comparando as Senhas  -  Pendente
 
 
-Próximo passo: Adicionar os botões de "Concluir" e "Remover";
+Próximo passo: Tela de LOGIN fake;
