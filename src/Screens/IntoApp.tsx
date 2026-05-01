@@ -93,7 +93,6 @@ export default function Index() {
         setDataTask( data => [...data, newTask])
 
         asyncPersistData([...dataTask, newTask])
-        console.log('task setData: ', [...dataTask, newTask])
         setTask("")
     }
 
@@ -110,12 +109,13 @@ export default function Index() {
     function pressDelete ( id: number ) {
 
         const newArrayDeleted: dataTypeTask[] = [...dataTask].filter( (item) => item.id != id)
+        asyncPersistData(newArrayDeleted)
         setDataTask(newArrayDeleted)
     }
 
 
     return(
-            <View style={ { flex: 1}}>
+            <View>
                 <View style={style.container}>
                     <Text style={style.title}>Lista de Tarefas</Text>
 
@@ -129,6 +129,7 @@ export default function Index() {
                     <Button
                         label="+"
                         onPress={FuncSaveTask}
+                        moreStyle={style.extraStyleBtn}
                     />
                 </View>
 
@@ -197,8 +198,7 @@ const style = StyleSheet.create({
         alignItems: "center",
         gap: 7,
 
-        marginBottom: 20,
-        marginTop: 20,
+        margin: 20
     },
 
 
@@ -233,6 +233,11 @@ const style = StyleSheet.create({
 
         alignItems: "center",
         justifyContent: "center",
+    },
+    extraStyleBtn: {
+        backgroundColor: "green",
+        width: 48,
+        height: 48,
     },
     textBtn: {
         color: "#fefbfb",

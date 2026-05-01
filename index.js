@@ -1,4 +1,4 @@
 import { registerRootComponent } from 'expo'
-import Login from "./src/routes/Stack"
+import { RouteConfig } from "./src/routes/RouteConfig"
 
-registerRootComponent(Login)
+registerRootComponent(RouteConfig)

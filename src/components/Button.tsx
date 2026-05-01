@@ -6,15 +6,15 @@ import {
 } from "react-native"
 
 
-type btnType = PressableProps & { label: string}
+type btnType = PressableProps & { label: string, moreStyle?: any} 
 
 
 
-export default function Button ( {label, ...rest}: btnType) {
+export default function Button ( {label, moreStyle, ...rest}: btnType) {
 
     return(
 
-        <Pressable { ...rest } style={style.btn}>
+        <Pressable style={[style.btn, moreStyle ]} {...rest}>
             <Text style={style.label}>{ label }</Text>
         </Pressable>
 
@@ -25,8 +25,6 @@ export default function Button ( {label, ...rest}: btnType) {
 
 const style = StyleSheet.create({
     btn: {
-        backgroundColor: "green",
-        width: 48,
         height: 48,
         borderRadius: 8,
         borderWidth: 1,

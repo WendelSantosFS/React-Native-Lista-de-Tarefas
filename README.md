@@ -4,11 +4,17 @@ Lista de tarefas feita em React Native que salva as tarefas na memória do próp
 
 
 Etapas:
-    1- Tela de autenticação(Login) + Banco  - Pendente
-    2- Salvar as tarefas no próprio celular - OK
-    3- Botões de "Concluir" e "Remover" tarefa - OK
-    4- Salvar as tarefas no "Bando de Dados" - Pendente
-    5- Fazer um Back-end que busque o usuário no Banco de Dados comparando as Senhas  -  Pendente
+    - Tela de autenticação(Login) fake - OK   CREDENCIAIS= "admin & 1234"
+    - Salvar as tarefas no próprio celular - OK
+    - Botões de "Concluir" e "Remover" tarefa - OK
+    - Salvar as tarefas no "Bando de Dados" - Pendente
+    - Fazer um Back-end que busque o usuário no Banco de Dados comparando as Senhas  -  Pendente
 
 
-Próximo passo: Tela de LOGIN fake;
+
+*** Para trabalhar com ROTAS manualmente, foi preciso:
+    - Modificar o arquivo "package.json" no campo de "main": "expo-router/entry"  PARA "main": "index.js"
+    - Dentro do arquivo "index.js", importar "registerRootComponent" e o COMPONENTE que contém o <NavigationContainer>(contém as configurações das ROTAS). 
+    - E registrar este COMPONENTE com:   ex.:  registerRootComponent(COMPONENTE)
+
+Próximo passo: Mostrar como o USUÁRIO usar o APP;
