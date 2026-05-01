@@ -27,8 +27,8 @@ Próximo passo: Mostrar como o USUÁRIO usar o APP;<br>
 ## COMO USAR O APP - Demonstração com IMAGENS: 
 <br>
     1- Fazer o LOGIN:  usuário: "admin",   senha: 1234 <br>
-    <img href="/assets/passos-usar/passo1.png" width="300">  <br><br>
+    <img src="./assets/passos-usar/passo1.png" width="300">  <br><br>
     2- Escreva a TAREFA que deseja fazer e Aperte o botão de Adicionar, botão que tem + ( "+" )<br>  
-    <img href="/assets/passos-usar/passo2.png" width="300">
+    <img src="./assets/passos-usar/passo2.png" width="300">
     3- Você pode CONCLUIR uma Tarefa e assim o Fundo dela ficará todo Verde.<br>
     4- E por fim, pode EXCLUIR a Tarefa clicando no botão VERMELHO
