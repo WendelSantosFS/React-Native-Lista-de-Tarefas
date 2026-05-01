@@ -32,7 +32,7 @@ export default function Login ( { navigation }: Props) {
         if (user === "admin" && password === "1234") { 
             setUser("")
             setPassword("")
-            return navigation.navigate("IntoApp") 
+            return navigation.replace("IntoApp") 
         }
         else return Alert.alert("O usuário OU a senha errados!")
 
@@ -49,11 +49,13 @@ export default function Login ( { navigation }: Props) {
                     style={style.textInput}
                     value={user}
                     onChangeText={setUser}
+                    placeholder="Usuário"
                 />
                  <Input 
                     style={style.textInput}
                     value={password}
                     onChangeText={setPassword}
+                    placeholder="Senha"
                     
                     secureTextEntry
                 />
