@@ -7,7 +7,7 @@ Etapas:<br>
     1- Tela de autenticação(Login) fake - OK   CREDENCIAIS= "admin & 1234"<br>
     2- Salvar as tarefas no próprio celular - OK<br>
     3- Botões de "Concluir" e "Remover" tarefa - OK<br>
-    4- Menu que permite configurar o Banco de Dados escolhido para Salvar as TAREFAS- Pendente<br>
+    4- Menu(Drawer) que permite configurar o Banco de Dados escolhido para Salvar as TAREFAS, salva a URL do BD na memória do CELULAR- OK<br>
     5- Salvar as tarefas no "Bando de Dados" - Pendente<br>
     6- Fazer um Back-end que busque o usuário no Banco de Dados comparando as Senhas  -  Pendente<br>
 
@@ -18,7 +18,7 @@ Etapas:<br>
     - Dentro do arquivo "index.js", importar "registerRootComponent" e o COMPONENTE que contém o <NavigationContainer>(contém as configurações das ROTAS). <br>
     - E registrar este COMPONENTE com:   ex.:  registerRootComponent(COMPONENTE)<br>
 <br>
-Próximo passo: Mostrar como o USUÁRIO usar o APP;<br>
+Próximo passo: 5-Salvara as tarefas no BD;<br>
 
 <br>
 <br>

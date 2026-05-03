@@ -15,14 +15,23 @@ import {
 
 
 
+
+
+
+
+
+
+
+
 type Props = {
-    navigation: NativeStackNavigationProp<RootStackParamList, "Login">
+    navigation: NativeStackNavigationProp<RootStackParamList, "RouteDrawer">
 }
 
 export default function Login ( { navigation }: Props) {
 
     const [user, setUser] = useState("")
     const [password, setPassword] = useState("")
+    
 
 
     function handleAuth () {
@@ -32,7 +41,7 @@ export default function Login ( { navigation }: Props) {
         if (user === "admin" && password === "1234") { 
             setUser("")
             setPassword("")
-            return navigation.replace("IntoApp") 
+            return navigation.navigate("IntoApp") 
         }
         else return Alert.alert("O usuário OU a senha errados!")
 
@@ -41,6 +50,7 @@ export default function Login ( { navigation }: Props) {
 
     return(
         <View style={style.container}>
+
             <Text style={style.title}>Tela de Login</Text>
 
             <View style={style.viewsTextInput}>
@@ -78,6 +88,11 @@ const style = StyleSheet.create({
 
         gap: 20,
         padding: 25,
+    },
+
+    
+    menu: {
+
     },
     title: {
         fontSize: 30,

@@ -1,11 +1,13 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import Login from "../Screens/Login"
 import IntoApp from "../Screens/IntoApp"
-import { createStaticNavigation, NavigationContainer } from "@react-navigation/native"
+import { NavigationContainer } from "@react-navigation/native"
+
+import RouteDrawer from "./RouteDrawer"
+
 
 
 type RootStackParamList = {
-    Login: undefined,
+    RouteDrawer: undefined
     IntoApp: undefined
 }
 const Stack = createNativeStackNavigator<RootStackParamList>()
@@ -15,8 +17,8 @@ function RouteConfig () {
     return (
         <NavigationContainer>
 
-            <Stack.Navigator>
-                <Stack.Screen name="Login" component={Login} />
+            <Stack.Navigator screenOptions={ { headerShown: false }}>
+                <Stack.Screen name="RouteDrawer" component={RouteDrawer} />
                 <Stack.Screen name="IntoApp" component={IntoApp} />
             </Stack.Navigator>
             
