@@ -35,6 +35,12 @@ interface dataTypeTask {
     task: string,
     status: statusTask
 }
+interface typePostSQL {
+    url: string,
+    id: number
+    task: string,
+    status: statusTask
+}
 
 
 function lastId ( list: dataTypeTask[]): number {
@@ -85,32 +91,70 @@ export default function Index() {
 
         if (task.replaceAll(' ', '').length === 0) return
 
-        const newIdTask: number = lastId(dataTask)
-
-        const newTask: dataTypeTask = { id: newIdTask, task, status: "pendente"}
-
+        const id: number = lastId(dataTask)  // reformular= não precisa de funcao pra ISSO
+        const status: statusTask = "pendente"
+        const newTask: dataTypeTask = { id, task, status,}
         
         setDataTask( data => [...data, newTask])
-
         asyncPersistData([...dataTask, newTask])
         setTask("")
+
+
+        const url = await AsyncStorage.getItem('info-sql')
+        const fetchUrl = "http://192.168.1.100:3000/create"
+        const response = await fetch(fetchUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify( {url, id, task, status} )
+        })
+
+        const result = await response.json()
+        console.log("Enviado pro banco: ", result)
+        
     }
 
 
 
-    function pressSucess ( id: number) {
+    async function pressSucess ( id: number ) {
+        const url = await AsyncStorage.getItem("info-sql")
         
         const updatedTask: dataTypeTask[] = dataTask.map( task => { 
             return task.id === id ? {...task, status: "feito"} : task
         })
         setDataTask(updatedTask)
+        asyncPersistData(updatedTask)
+
+        
+        
+        const newStatus = "feito"
+        const fetchUrlUpdate = "http://192.168.1.100:3000/updateStatus"
+        const response = await fetch(fetchUrlUpdate, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ url, id, newStatus})
+        })
 
     }
-    function pressDelete ( id: number ) {
+    async function pressDelete ( id: number ) {
 
         const newArrayDeleted: dataTypeTask[] = [...dataTask].filter( (item) => item.id != id)
         asyncPersistData(newArrayDeleted)
         setDataTask(newArrayDeleted)
+
+        const url = await AsyncStorage.getItem('info-sql')
+        const fetchUrl = "http://192.168.1.100:3000/delete"
+        const response = await fetch(fetchUrl, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify( {url, id } )
+        })
+
     }
 
 

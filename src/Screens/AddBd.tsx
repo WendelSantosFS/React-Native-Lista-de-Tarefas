@@ -20,7 +20,7 @@ type dataSQL = {
 
 const keyURLbd = "info-sql"
 async function saveMemory ( {bds, username, password, host, nomeBanco}: dataSQL) {
-    const URL = `${bds}://${username}:${password}@host:${host}/${nomeBanco}`
+    const URL = `${bds}://${username}:${password}@localhost:${host}/${nomeBanco}`
 
     await AsyncStorage.setItem(keyURLbd, URL)
     console.log("info-SQL salvo: ", URL)
